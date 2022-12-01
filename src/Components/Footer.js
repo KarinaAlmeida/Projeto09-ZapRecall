@@ -1,9 +1,11 @@
 import styled from "styled-components";
 
 export default function Footer () {
+    return(
     <Rodape>
-
+        
     </Rodape>
+    )
 }
 
 const Rodape=styled.div`
