@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import Cards from "./Cards"
 
-export default function Perguntas () {
+export default function Perguntas ({contador, setContador}) {
     const cartas = [
         { question: "O que é JSX?", answer: "Uma extensão da linguagem JavaScript" },
         { question: "O React é __", answer: "Uma biblioteca JavaScript para construção de interfaces" },
@@ -15,7 +15,7 @@ export default function Perguntas () {
 
     return (
         <StyledCards>
-    {cartas.map((item, index) => <Cards     Num={index + 1} pergunta={item.question} resposta={item.answer} ></Cards>
+    {cartas.map((item, index) => <Cards     Num={index + 1} pergunta={item.question} resposta={item.answer} contador={contador} setContador={setContador} ></Cards>
                                             
                 )}
          </StyledCards>

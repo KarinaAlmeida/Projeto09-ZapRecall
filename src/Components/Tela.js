@@ -3,8 +3,10 @@ import GlobalStyle from "./GlobalStyle"
 import Footer from "./Footer"
 import Perguntas from "./Perguntas"
 import logo from "../assets/img/logo.png" 
+import { useState } from "react";
 
 export default function Tela () {
+const [contador, setContador]= useState(0)
 
     return (
      <Container>
@@ -15,8 +17,8 @@ export default function Tela () {
         <h1>ZapRecall</h1>
         </ContainerLogo>
         
-        <Perguntas />           
-        <Footer />
+        <Perguntas contador={contador} setContador={setContador} />           
+        <Footer contador={contador}/>
      </Container>
 
     )

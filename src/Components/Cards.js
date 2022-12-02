@@ -3,19 +3,22 @@ import React from 'react';
 import setaplay from "../assets/img/seta_play.png";
 import vira from "../assets/img/seta_virar.png";
 import errou from "../assets/img/icone_erro.png";
+import acertou from "../assets/img/icone_certo.png";
+import quase from "../assets/img/icone_quase.png";
 
 
 
-export default function Cards ({Num, pergunta, resposta}) {
+export default function Cards ({Num, pergunta, resposta, contador, setContador}) {
 
 const [qualFace, setQualFace] = React.useState(1);
-const [cor, setCor]=React.useState();
+const [qualCor, setQualCor]=React.useState('black') 
+
 
 function FaceUm (){
     return (
-        <Perguntafechada onClick={()=>setQualFace(2)}>
+        <Perguntafechada >
             <p>Pergunta {Num}</p>
-            <img src={setaplay} />
+            <img src={setaplay} onClick={()=>setQualFace(2)} />
         </Perguntafechada>
 
     )
@@ -23,9 +26,9 @@ function FaceUm (){
 
 function FaceDois () {
     return(
-        <StyledPerguntaAberta onClick={()=> setQualFace(2)}>
+        <StyledPerguntaAberta >
             <p>{pergunta}</p>
-            <img src={vira} />
+            <img src={vira} onClick={()=> setQualFace(3)}/>
         </StyledPerguntaAberta>
     )
 
@@ -33,30 +36,55 @@ function FaceDois () {
 
 function FaceTres () {
     return (
-        <StyledResposta onClick={()=> setQualFace(3)}>
+        <StyledResposta>
             <p>{resposta}</p>
 
-                 <StyledButton onClick={()=>mudaCor(setCor('red'))}>Não lembrei</StyledButton>
-                    <button onClick={()=>mudaCor(setCor('yellow'))}>Quase não lembrei</button>
-                    <button onClick={()=>mudaCor(setCor('green'))}>Zap!</button>
-            
+                    <ContainerButton>
+                    <StyledButton cor="red" onClick={()=>mudaCor('red')}>Não lembrei</StyledButton>
+                    <StyledButton cor="#FF922E" onClick={()=>mudaCor('#FF922E')}>Quase não lembrei</StyledButton>
+                    <StyledButton cor="green" onClick={()=>mudaCor('green')}>Zap!</StyledButton>
+                    </ContainerButton>
+
         </StyledResposta>
     )
 }
 
-function FaceQuatro () {
+
+function FaceQuatro() {
+    if (qualCor==='red'){
+        return(
+            <Perguntarespondida cor={'red'}>
+            <p> Pergunta {Num}</p>
+            <img src={errou} />
+        </Perguntarespondida>
+        )
+    } else if(qualCor==='#FF922E'){
+        return(
+            <Perguntarespondida cor={'#FF922E'}>
+            <p > Pergunta {Num}</p>
+            <img src={quase} />
+        </Perguntarespondida>
+        )
+
+}else if(qualCor==='green') {
     return(
-        <Perguntafechada onClick={()=>setQualFace(2)}>
-        <p>{cor} Pergunta {Num}</p>
-        <img src={setaplay} />
-    </Perguntafechada>
+        <Perguntarespondida cor={'green'}>
+            <p > Pergunta {Num}</p>
+            <img src={acertou} />
+        </Perguntarespondida>
     )
 }
-
-function mudaCor(cor){
-    setQualFace(cor);
-    
 }
+
+function mudaCor(cor) {
+    setContador(contador+1) 
+    setQualFace(4)
+    setQualCor(cor)
+}
+
+
+
+
 
 
 
@@ -70,14 +98,8 @@ switch (qualFace) {
     case 3:
         return (<FaceTres />);
 
-
-
-    case 'red':
-        return (
-        <FaceQuatro>
-            <img src={errou} />
-            </FaceQuatro>
-        )
+    case 4:
+    return (<FaceQuatro /> )
 
      
 }
@@ -153,22 +175,56 @@ const Perguntafechada= styled.div `
     flex-direction: column;
     justify-content: space-between;
     `
+    const ContainerButton= styled.div`
+       width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    `
 
 const StyledButton= styled.button `
-    width: 90px;
-    font-family: 'Recursive';
-    font-style: normal;
+    width: 85px;
+    height: 37px;
+    border-radius: 5px;
     font-weight: 400;
     font-size: 12px;
-    line-height: 14px;
+    color: #FFFFFF;
+    font-family: 'Recursive';
+    font-style: normal;
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
-    color: #FFFFFF;
-    background: blue;
-    border-radius: 5px;
-    border: 1px solid blue;
+    background: ${props=> props.cor};
+    line-height: 14px;
+    border: 1px solid ${props=> props.cor};
     padding:5px;
+    margin-top: 30px;
     
     `
+
+
+
+
+const Perguntarespondida = styled.div`
+     width: 300px;
+    height: 65px;
+    background-color: #FFFFFF;
+    margin: 12px;
+    padding: 15px;
+    box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.15);
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    p{
+        font-family: 'Recursive';
+        text-decoration: line-through;
+        font-weight: 700;
+        font-size: 16px;
+        line-height: 19px;
+        color: ${props=> props.cor};
+    }
+
+`

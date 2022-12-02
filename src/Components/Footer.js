@@ -1,15 +1,15 @@
 import styled from "styled-components";
 
-export default function Footer () {
+export default function Footer ({contador}) {
     return(
     <Rodape>
-        
+        <p> {contador}/8 CONCLUÍDOS</p>
     </Rodape>
     )
 }
 
 const Rodape=styled.div`
-    width: 100%;
+    width: 100vw;
     min-height: 50px;
     background-color: #FFFFFF;
     position: fixed;
