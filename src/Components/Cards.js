@@ -16,9 +16,9 @@ const [qualCor, setQualCor]=React.useState('black')
 
 function FaceUm (){
     return (
-        <Perguntafechada >
-            <p>Pergunta {Num}</p>
-            <img src={setaplay} onClick={()=>setQualFace(2)} />
+        <Perguntafechada data-test="flashcard">
+            <p data-test="flashcard-text">Pergunta {Num}</p>
+            <img src={setaplay} data-test="play-btn" onClick={()=>setQualFace(2)}  />
         </Perguntafechada>
 
     )
@@ -26,9 +26,9 @@ function FaceUm (){
 
 function FaceDois () {
     return(
-        <StyledPerguntaAberta >
-            <p>{pergunta}</p>
-            <img src={vira} onClick={()=> setQualFace(3)}/>
+        <StyledPerguntaAberta data-test="flashcard">
+            <p data-test="flashcard-text">{pergunta}</p>
+            <img src={vira} data-test="turn-btn" onClick={()=> setQualFace(3)} />
         </StyledPerguntaAberta>
     )
 
@@ -36,13 +36,13 @@ function FaceDois () {
 
 function FaceTres () {
     return (
-        <StyledResposta>
-            <p>{resposta}</p>
+        <StyledResposta data-test="flashcard">
+            <p data-test="flashcard-text">{resposta}</p>
 
                     <ContainerButton>
-                    <StyledButton cor="red" onClick={()=>mudaCor('red')}>Não lembrei</StyledButton>
-                    <StyledButton cor="#FF922E" onClick={()=>mudaCor('#FF922E')}>Quase não lembrei</StyledButton>
-                    <StyledButton cor="green" onClick={()=>mudaCor('green')}>Zap!</StyledButton>
+                    <StyledButton data-test="no-btn" cor="red" onClick={()=>mudaCor('red')}>Não lembrei</StyledButton>
+                    <StyledButton data-test="partial-btn" cor="#FF922E" onClick={()=>mudaCor('#FF922E')}>Quase não lembrei</StyledButton>
+                    <StyledButton data-test="zap-btn" cor="green" onClick={()=>mudaCor('green')}>Zap!</StyledButton>
                     </ContainerButton>
 
         </StyledResposta>
@@ -53,24 +53,24 @@ function FaceTres () {
 function FaceQuatro() {
     if (qualCor==='red'){
         return(
-            <Perguntarespondida cor={'red'}>
-            <p> Pergunta {Num}</p>
-            <img src={errou} />
+            <Perguntarespondida cor={'red'} data-test="flashcard">
+            <p data-test="flashcard-text"> Pergunta {Num}</p>
+            <img data-test="no-icon" src={errou} />
         </Perguntarespondida>
         )
     } else if(qualCor==='#FF922E'){
         return(
-            <Perguntarespondida cor={'#FF922E'}>
-            <p > Pergunta {Num}</p>
-            <img src={quase} />
+            <Perguntarespondida cor={'#FF922E'} data-test="flashcard">
+            <p data-test="flashcard-text"> Pergunta {Num}</p>
+            <img data-test="partial-icon" src={quase} />
         </Perguntarespondida>
         )
 
 }else if(qualCor==='green') {
     return(
-        <Perguntarespondida cor={'green'}>
-            <p > Pergunta {Num}</p>
-            <img src={acertou} />
+        <Perguntarespondida cor={'green'} data-test="flashcard">
+            <p data-test="flashcard-text" > Pergunta {Num}</p>
+            <img data-test="zap-icon" src={acertou} />
         </Perguntarespondida>
     )
 }
